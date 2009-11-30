@@ -1,0 +1,15 @@
+== pi.gist.php
+
+An ExpressionEngine plugin to allow for embedding of Github Gists.
+
+== Current Version
+
+1.0 (30 November 2009)
+
+== Requirements
+
+None.
+
+== License
+
+pi.gist.php is distributed under the liberal MIT License.
