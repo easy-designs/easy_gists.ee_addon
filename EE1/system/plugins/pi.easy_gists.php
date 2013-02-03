@@ -1,7 +1,7 @@
 <?php
 /*
 =====================================================
- Gist - by Easy! Designs, LLC
+ Easy Gists - by Easy! Designs, LLC
 -----------------------------------------------------
  http://www.easy-designs.net/
 =====================================================
@@ -18,22 +18,22 @@
 */
 
 $plugin_info = array(
-  'pi_name'        => 'Gist',
+  'pi_name'        => 'Easy Gists',
   'pi_version'     => '1.0',
   'pi_author'      => 'Aaron Gustafson',
   'pi_author_url'	 => 'http://easy-designs.net/',
   'pi_description' => 'Embeds a Github Gist into the page',
-  'pi_usage'       => Gist::usage()
+  'pi_usage'       => Easy_gists::usage()
 );
 
-class Gist {
+class Easy_gists {
 
   # properties
   var $URL         = 'http://gist.github.com/{id}.js{file}';
   var $return_data = '';
   
   /**
-   * Gist constructor
+   * Easy_gists constructor
    * sets any overrides and triggers the processing
    * 
    * @param str $str - the content to be parsed
@@ -60,10 +60,10 @@ class Gist {
       $this->URL = $FNS->var_swap( $this->URL, $swap );
       $this->return_data = ( $embed == 'yes' ) ? $this->embed( $css ) : $this->script();
     }
-  } # end Gist constructor
+  } # end Easy_gists constructor
   
   /**
-   * Gist::embed()
+   * Easy_gists::embed()
    * processes the supplied gist
    */
   function embed( $css=TRUE )
@@ -85,10 +85,10 @@ class Gist {
       $str = preg_replace( "/[\n\r]/", '', $str );
     }
     return $str;
-  } # end Gist::render()
+  } # end Easy_gists::render()
     
   /**
-   * Gist::script()
+   * Easy_gists::script()
    * creates the Gist script element
    */
   function script()
@@ -97,7 +97,7 @@ class Gist {
   } # end Gist::script()
 
   /**
-   * Gist::css()
+   * Easy_gists::css()
    * generates the HTML link element pointing to the Gist CSS file
    */
   function css()
@@ -108,10 +108,10 @@ class Gist {
     
     return ( '<link rel="stylesheet" type="text/css" ' . $media .
              ' href="http://gist.github.com/stylesheets/gist/embed.css" />' );
-  } # end Gist::css()
+  } # end Easy_gists::css()
 
   /**
-   * Gist::usage()
+   * Easy_gists::usage()
    * Describes how the plugin is used
    */
   function usage()
@@ -119,7 +119,7 @@ class Gist {
     ob_start(); ?>
 This plugin allows you to control how the Gist is rendered in your page. The only required property is the Gist ID:
 
-{exp:gist id="245831"}
+{exp:easy_gists id="245831"}
 
 would result in the text content of the Gist found at http://gist.github.com/245831.js being printed into the document (all scripting would be removed).
 
@@ -131,18 +131,19 @@ This plugin has several optional parameters:
 
 You can also embed the Gist CSS from Github directly by using
 
-{exp:gist:css}
+{exp:easy_gists:css}
 
 It has one optional parameter, media, which you can use to specify the media to direct the CSS to (undefined/all by default):
 
-{exp:gist:css media="screen"}
+{exp:easy_gists:css media="screen"}
 
 <?php
     $buffer = ob_get_contents();
     ob_end_clean();
     return $buffer;
-  } # end Gist::usage()
+  } # end Easy_gists::usage()
 
-} # end Gist
+} # end Easy_gists
 
-?>
+/* End of file pi.easy_gists.php */ 
+/* Location: ./system/expressionengine/third_party/easy_gists/pi.easy_gists.php */
