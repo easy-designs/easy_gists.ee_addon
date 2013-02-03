@@ -14,7 +14,7 @@ would result in the text content of the Gist found at https://gist.github.com/24
 
 This plugin has several optional parameters:
 
- - `embed`: accepts "yes" or "no" ("yes" by default) and determines whether the content should be embedded (as opposed to linked via script)
+ - `embed`: accepts "yes" or "no" ("yes" by default) and determines whether the content should be embedded (as opposed to linked via `script`)
  - `css`: accepts "yes" or "no" ("yes" by default) and is used with `embed="yes"` to determine whether or not the CSS reference should be stripped from the embedded code (in case you either don't want to use the Gist CSS or you've used `{exp:gist:css}` in the head of your document)
  - `file`: is the string filename you want the Gist to use (assuming your Gist has multiple files)
 
