@@ -18,12 +18,12 @@
 */
 
 $plugin_info = array(
-  'pi_name'			=> 'Easy Gists',
-  'pi_version'		=> '1.1',
-  'pi_author'		=> 'Aaron Gustafson',
-  'pi_author_url'	=> 'http://easy-designs.net/',
-  'pi_description'	=> 'Embeds a Github Gist into the page',
-  'pi_usage'		=> Easy_gists::usage()
+	'pi_name'			=> 'Easy Gists',
+	'pi_version'		=> '1.1',
+	'pi_author'			=> 'Aaron Gustafson',
+	'pi_author_url'		=> 'http://easy-designs.net/',
+	'pi_description'	=> 'Embeds a Github Gist into the page',
+	'pi_usage'			=> Easy_gists::usage()
 );
 
 class Easy_gists {
@@ -56,7 +56,11 @@ class Easy_gists {
 	
 		# cache dir
 		$this->cache_dir = APPPATH . 'cache/' . strToLower( __CLASS__ ) . '/';
-	
+		if ( ! is_dir( $this->cache_dir ) )
+		{
+			mkdir( $this->cache_dir );
+		}
+		
 		# default return
 		$this->return_data = $this->EE->TMPL->tagdata;
 	
@@ -185,15 +189,11 @@ class Easy_gists {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Easy_gists::css()
-	 * generates the HTML link element pointing to the Gist CSS file
+	 * Easy_gists::css() - DEPRECATED
 	 */
-	function css( $media='screen' )
+	function css()
 	{
-		# determine the media type
-		$media = ( $temp = $this->EE->TMPL->fetch_param('media') ) ? "media='{$temp}'" : '';
-		
-		return "<link rel='stylesheet' {$media} href='{$this->gist_css}' />";
+		return "";
 	}
 	# end Easy_gists::css()
 
@@ -422,7 +422,7 @@ class Easy_gists {
 			$script = preg_replace( '/document.write\(\'/i', '', $script );
 			$script = preg_replace( '/(*ANYCRLF)\'\)$/m', '', $script );
 			# remove the CSS?
-			if ( ! $css ) $script = preg_replace( '/<link rel="stylesheet"[^>]+>/', '', $script );
+			if ( ! $css ) $script = preg_replace( '/<link[^>]+>/', '', $script );
 			# remove javascript newlines
 			$script = preg_replace( '%(?<!/)\\\\n%', '', $script );
 			# reverse javascript escaping
@@ -571,13 +571,6 @@ This plugin has several optional parameters:
 
 {exp:easy_gists id="4622706" file="undoing-tables.scss" raw="yes" highlight="1-8,10"}
 
-You can embed the Gist CSS from Github directly by using
-
-{exp:easy_gists:css}
-
-It has one optional parameter, media, which you can use to specify the media to direct the CSS to (undefined/all by default):
-
-{exp:easy_gists:css media="screen"}
 <?php
 		$buffer = ob_get_contents();
 		ob_end_clean();

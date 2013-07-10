@@ -27,14 +27,6 @@ This plugin has several optional parameters:
 
 	{exp:easy_gists id="4622706" file="undoing-tables.scss" raw="yes" highlight="1-8,10"}
 
-You can embed the Gist CSS from Github directly by using
-
-	{exp:easy_gists:css}
-
-It has one optional parameter, media, which you can use to specify the media to direct the CSS to (undefined/all by default):
-
-	{exp:easy_gists:css media="screen"}
-
 License
 -------
 
