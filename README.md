@@ -18,14 +18,14 @@ This plugin has several optional parameters:
  - `css`: accepts "yes" or "no" ("yes" by default) and is used with `embed="yes"` to determine whether or not the CSS reference should be stripped from the embedded code (in case you either don't want to use the Gist CSS or you've used `{exp:gist:css}` in the head of your document)
  - `file`: is the string filename you want the Gist to use (assuming your Gist has multiple files)
 
-	{exp:easy_gists id="245831" file="my.html"}
+	<pre><code>{exp:easy_gists id="245831" file="my.html"}</code></pre>
 
  - `raw`: accepts "yes" or "no" ("no" by default) and has the script load the raw code (as opposed to the parsed JavaScript contents) **EE2 only**
  - `wrap_with`: the elements you want to wrap around the raw code ("pre.ext,code" by default). Separate multiple elements by a comma. Use ".ext" to add a `class` equal to the file’s extension to a specific element. **EE2 only**
  - `highlight`: Highlight one or more lines (available in raw mode only). Individual lines should be separated by commas ("10,12"). Multiple lines can be higlighted by setting a start and end, separated by a hyphen ("10-12"). You can combine these. **EE2 only**
  - `highlight_with`: The markup you want to wrap the highlighted lines ("mark" by default). **EE2 only**
 
-	{exp:easy_gists id="4622706" file="undoing-tables.scss" raw="yes" highlight="1-8,10"}
+	<pre><code>{exp:easy_gists id="4622706" file="undoing-tables.scss" raw="yes" highlight="1-8,10"}</code></pre>
 
 License
 -------
