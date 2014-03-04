@@ -19,7 +19,7 @@
 
 $plugin_info = array(
 	'pi_name'			=> 'Easy Gists',
-	'pi_version'		=> '1.1',
+	'pi_version'		=> '1.2',
 	'pi_author'			=> 'Aaron Gustafson',
 	'pi_author_url'		=> 'http://easy-designs.net/',
 	'pi_description'	=> 'Embeds a Github Gist into the page',
@@ -124,7 +124,7 @@ class Easy_gists {
 	function embed( $file='', $raw=FALSE, $css=TRUE )
 	{
 		$gist_html = '';
-		
+
 		if ( $raw )
 		{
 			# create the URL
@@ -160,6 +160,13 @@ class Easy_gists {
 			$gist_html = $this->_parse_script( $script, $css );
 		}
 
+		# encode ee tags {}
+		$gist_html = str_replace(
+			array( '{', '}' ),
+			array( '&#123;', '&#125;' ),
+			$gist_html
+		);
+		
 		return $gist_html;
 	}
 	# end Easy_gists::embed()
@@ -300,7 +307,7 @@ class Easy_gists {
 		# read the cache
 		$cached = $this->_read_cache( $url );
 		$fresh = FALSE;
-		
+
 		# no cache, try loading it
 		if ( $this->cache_expired OR ! $cached )
 		{
@@ -368,7 +375,7 @@ class Easy_gists {
 			{
 				if ( isset( $gist['files'][$file] ) )
 				{
-					$raw = $this->_retrieve( $gist['files'][$file]['raw_url'] );
+					$raw = stripslashes( $gist['files'][$file]['content'] );
 					$extension = array_pop( explode( '.', $gist['files'][$file]['filename'] ) );
 					$raw = htmlspecialchars( $raw );
 					$raw = $this->_highlight( $raw );
@@ -538,7 +545,23 @@ class Easy_gists {
 	 */
 	function _fetch( $url )
 	{
-		return file_get_contents( $url );
+		# init cURL
+		$ch = curl_init();
+		
+		# set up the request
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'User-Agent: PHP cURL'
+		));
+		
+		# get a response
+		$response = curl_exec($ch);
+		
+		# release the memory
+		curl_close( $ch );
+		
+		return $response;
 	}
 
 	// --------------------------------------------------------------------
